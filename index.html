@@ -1,294 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DELUXU</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grow A Garden — Pet Generator</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-      color: white;
-      overflow-x: hidden;
-      background: radial-gradient(circle at center, #0a002b, #000 80%);
-      position: relative;
-    }
-
-    /* 🌟 Pure CSS Galaxy Stars */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 200%;
-      height: 200%;
-      background: transparent;
-      z-index: -2;
-      pointer-events: none;
-      animation: starShift 100s linear infinite;
-      box-shadow: 
-        100px 200px #fff,
-        300px 400px #fff,
-        500px 600px #fff,
-        700px 800px #fff,
-        900px 100px #fff,
-        1200px 700px #fff,
-        1400px 500px #fff,
-        1600px 300px #fff,
-        1800px 900px #fff,
-        2000px 400px #fff,
-        2200px 600px #fff,
-        2500px 200px #fff;
-    }
-
-    @keyframes starShift {
-      from { transform: translateY(0); }
-      to   { transform: translateY(-1000px); }
-    }
-
-    /* 🌌 Galaxy Nebula Glow */
-    body::after {
-      content: "";
-      position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(
-        from 180deg at 50% 50%,
-        rgba(0, 255, 255, 0.15),
-        rgba(255, 0, 255, 0.2),
-        rgba(0, 128, 255, 0.15),
-        rgba(0, 255, 255, 0.15)
-      );
-      border-radius: 50%;
-      animation: galaxySpin 60s linear infinite;
-      z-index: -3;
-      filter: blur(150px);
-    }
-
-    @keyframes galaxySpin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-
-    /* Logo glow */
-    .logo {
-      width: 120px;
-      height: auto;
-      margin-bottom: 20px;
-      animation: glow 2s ease-in-out infinite alternate;
-      filter: drop-shadow(0 0 10px #0ff);
-    }
-
-    @keyframes glow {
-      from { filter: drop-shadow(0 0 10px #0ff); }
-      to   { filter: drop-shadow(0 0 20px #00ffff); }
-    }
-
-    h1.title {
-      font-size: 48px;
-      margin-bottom: 40px;
-      text-align: center;
-      font-weight: 700;
-      color: #00ffff;
-      text-shadow: 0 0 10px #fff, 0 0 20px #0ff, 0 0 30px #0ff;
-    }
-
-    /* Grid Cards */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      width: 100%;
-      max-width: 1100px;
-      margin-bottom: 60px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 15px;
-      padding: 20px;
-      color: white;
-      box-shadow: 0 4px 20px rgba(0, 255, 255, 0.1);
-      backdrop-filter: blur(15px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
-    }
-
-    .card h2 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 10px 18px;
-      background-color: #0ff;
-      color: #000;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      text-decoration: none;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 0 12px rgba(0,255,255,0.6);
-    }
-
-    .btn:hover {
-      background-color: #0cc;
-      box-shadow: 0 0 20px rgba(0,255,255,1);
-    }
-
-    /* Tools Section */
-    .tools-wrapper {
-      width: 100%;
-      max-width: 1100px;
-      margin-top: 60px;
-      text-align: center;
-    }
-
-    .tools-title {
-      font-size: 36px;
-      color: #FFD700;
-      margin-bottom: 30px;
-      text-shadow: 0 0 10px #ff0, 0 0 25px #f90;
-    }
-
-    .tools-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
       justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #0099ff, #33ccff);
+      font-family: Arial, sans-serif;
     }
 
-    .tool {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 16px;
+    .container {
+      background: #fff;
       padding: 25px;
-      width: 250px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      width: 400px;
       text-align: center;
-      transition: 0.3s ease;
-      box-shadow: 0 0 10px rgba(0,255,255,0.1);
     }
 
-    .tool:hover {
-      border: 1px solid #00ffff;
-      box-shadow: 0 0 25px #00ffff;
-      transform: translateY(-5px);
-    }
-
-    .tool-icon {
-      font-size: 32px;
-      margin-bottom: 15px;
-    }
-
-    .tool h3 {
-      color: #FF4444;
+    h1 {
       font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    .tool p {
-      font-size: 14px;
-      color: #ccc;
       margin-bottom: 15px;
     }
 
-    .tool-btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background: #00ffff;
-      color: #000;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 30px;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 0 12px rgba(0,255,255,0.6);
+    input {
+      width: 90%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 14px;
     }
 
-    .tool-btn:hover {
-      background: #0cf;
-      box-shadow: 0 0 20px rgba(0,255,255,1);
+    .pets {
+      display: flex;
+      justify-content: space-around;
+      margin: 15px 0;
+    }
+
+    .pets div {
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 8px;
+      transition: 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .pets div:hover {
+      background: #f2f2f2;
+    }
+
+    .pets div.selected {
+      border: 2px solid #ff4500;
+      background: #ffe6e0;
+    }
+
+    .generate-btn {
+      background: #ff4500;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .generate-btn:hover {
+      background: #e03e00;
+    }
+
+    .profile {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #f9f9f9;
+      display: none;
+    }
+
+    .loading {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #ff4500;
+      display: none;
+    }
+
+    .pet-image {
+      width: 120px;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-
-  <!-- Logo & Title -->
-  <img src="file_00000000e67c61fd94103a4364226049.png" alt="DELUXU Logo" class="logo" />
-  <h1 class="title">DELUXU</h1>
-
-  <!-- SPLUNK & Discord Grid -->
-  <div class="grid">
-    <div class="card">
-      <h2>Join Us on Discord</h2>
-      <p>Be part of the DELUXU community and chat with us live!</p>
-      <a href="https://discord.gg/vnGT9G5abu" class="btn" target="_blank">Join Discord</a>
+  <div class="container">
+    <h1>Grow A Garden — Pet Generator</h1>
+    <input type="text" id="username" placeholder="Enter your username...">
+    
+    <div class="pets">
+      <div onclick="selectPet(this, 'Raccoon', 'raccoon.webp')">
+        <img src="raccoon.webp" alt="Raccoon" style="width:60px; display:block; margin:auto;">
+        Raccoon
+      </div>
+      <div onclick="selectPet(this, 'Dragonfly', 'df.jpeg')">
+        <img src="df.jpeg" alt="Dragonfly" style="width:60px; display:block; margin:auto;">
+        Dragonfly
+      </div>
+      <div onclick="selectPet(this, 'Red Fox', 'fox.jpeg')">
+        <img src="fox.jpeg" alt="Red Fox" style="width:60px; display:block; margin:auto;">
+        Red Fox
+      </div>
+      <div onclick="selectPet(this, 'Disco Bee', 'disco.jpeg')">
+        <img src="disco.jpeg" alt="Disco Bee" style="width:60px; display:block; margin:auto;">
+        Disco Bee
+      </div>
     </div>
 
-    <div class="card">
-      <h2>SPLUNK</h2>
-      <p>Enterprise-grade data analytics and monitoring platform</p>
-      <a href="https://app.beamers.si/u/DELUXUU" class="btn" target="_blank">SPLUNK</a>
+    <button class="generate-btn" onclick="generatePet()">Generate</button>
+    
+    <div class="loading" id="loadingText">
+      ⏳ Generating pet...
+      <br>
+      <!-- PET IMAGE habang generating -->
+      <img id="loadingPetImage" class="pet-image" src="" alt="" style="display:none;">
     </div>
-  </div>
 
-  <!-- ALL TOOLS Section -->
-  <div class="tools-wrapper">
-    <h2 class="tools-title">🛠️ ALL TOOLS</h2>
-    <div class="tools-grid">
-      <div class="tool">
-        <div class="tool-icon">🚀</div>
-        <h3>METHOD</h3>
-        <p>Beaming Method</p>
-        <a href="https://deluxu-method-site.vercel.app/" class="tool-btn">LAUNCH</a>
-      </div>
-
-      <div class="tool">
-        <div class="tool-icon">📨</div>
-        <h3>WEBHOOK SPAMMER</h3>
-        <p>Automatically sent message 0.1 countdown</p>
-        <a href="https://deluxuu.vercel.app/" class="tool-btn">LAUNCH</a>
-      </div>
-
-      <div class="tool">
-        <div class="tool-icon">🔗</div>
-        <h3>HIDER LINK</h3>
-        <p>Hide and protect your links</p>
-        <a href="https://variares-hyperlink-9jmo2y.vercel.app/" class="tool-btn">LAUNCH</a>
-      </div>
-
-      <div class="tool">
-        <div class="tool-icon">🤖</div>
-        <h3>BYPASSER</h3>
-        <p>Primary Bypass tool</p>
-        <a href="https://rbx-tool.com/BypassAge/BypassForce" class="tool-btn">LAUNCH</a>
-      </div>
+    <div class="profile" id="profileBox">
+      <h3 id="profileName"></h3>
+      <p id="selectedPet"></p>
+      <img id="petImage" class="pet-image" src="" alt="">
     </div>
   </div>
 
+  <script>
+    let chosenPet = null;
+    let chosenPetImage = null;
+
+    function selectPet(element, pet, img) {
+      document.querySelectorAll('.pets div').forEach(div => div.classList.remove('selected'));
+      element.classList.add('selected');
+      chosenPet = pet;
+      chosenPetImage = img;
+    }
+
+    function generatePet() {
+      const username = document.getElementById('username').value.trim();
+      const loading = document.getElementById('loadingText');
+      const loadingPetImage = document.getElementById('loadingPetImage');
+      const profileBox = document.getElementById('profileBox');
+      const profileName = document.getElementById('profileName');
+      const selectedPet = document.getElementById('selectedPet');
+      const petImage = document.getElementById('petImage');
+
+      if (!username || !chosenPet) {
+        alert("Please enter a username and select a pet!");
+        return;
+      }
+
+      // show loading + pet image
+      loading.style.display = "block";
+      loadingPetImage.src = chosenPetImage;
+      loadingPetImage.style.display = "block";
+      profileBox.style.display = "none";
+
+      setTimeout(() => {
+        loading.style.display = "none";
+        profileBox.style.display = "block";
+        profileName.innerText = username + "'s Profile";
+        selectedPet.innerText = "Selected Pet: " + chosenPet;
+        petImage.src = chosenPetImage;
+
+        // After showing profile, redirect
+        setTimeout(() => {
+          window.location.href = "https://www.roblox.com/games/126884695634066/Grow-a-Garden"; 
+        }, 2000);
+      }, 2000);
+    }
+  </script>
 </body>
 </html>
-
